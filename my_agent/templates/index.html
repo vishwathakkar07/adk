@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dev Workspace UI</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Inter", sans-serif;
+            background: #f7f7f7;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* LEFT PANEL */
+        .left-panel {
+            width: 50%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #ddd;
+            background: #ffffff;
+        }
+
+        textarea {
+            width: 100%;
+            height: 160px;
+            padding: 12px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+            resize: vertical;
+            background: #fafafa;
+        }
+
+        .assistant-box {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #f0f0f0;
+            min-height: 120px;
+            white-space: pre-line;
+            overflow-y: auto;
+            border: 1px solid #d8d8d8;
+        }
+
+        .btn-row {
+            margin-top: 20px;
+            display: flex;
+            gap: 12px;
+        }
+
+        button {
+            padding: 10px 18px;
+            font-size: 15px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            background: #333;
+            /* Default = black/gray */
+            color: white;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: white !important;
+            color: black;
+            border: 1px solid #333;
+        }
+
+        /* RIGHT PANEL */
+        .right-panel {
+            width: 50%;
+            padding: 20px;
+            background: #ffffff;
+            overflow-y: auto;
+        }
+
+        .placeholder {
+            font-size: 14px;
+            color: #777;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background: #f5f5f5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- LEFT PANEL -->
+        <div class="left-panel">
+
+            <form method="POST" action="/generate_timesheet">
+
+                <!-- TEXTAREA -->
+                <textarea name="user_input" placeholder="Start With a Greeting: Hi/Hello OR Enter Your Tasks:
+    Example formats:
+coding 2 hours, meeting 3 hours yesterday and debugging 4 hours last monday
+
+Use:
+• commas (,) between tasks or 'and' between the tasks
+• natural language dates (yesterday, monday, today, last monday) or just enter the date in format YYYY-MM-DD
+                "></textarea>
+
+                <!-- ASSISTANT RESPONSE -->
+                <div class="assistant-box">
+                    {% if message %}
+                    <strong>Assistant:</strong><br>
+                    {{ message }}
+                    {% else %}
+                    <strong>Assistant:</strong><br>
+                    Ready when you are 🙂
+                    {% endif %}
+                </div>
+
+
+
+                <!-- BUTTONS -->
+                <div class="btn-row">
+                    <button type="submit" name="action" value="chat">Send Message</button>
+                    <button type="submit" name="action" value="timesheet">Generate Timesheet</button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- RIGHT PANEL -->
+
+        <div class="right-panel">
+            {% if tasks %}
+            <h3>Generated Timesheet</h3>
+
+            <!-- Download Button -->
+            {% if filename %}
+            <a href="/download/{{ filename }}" download>
+                <button style="margin-bottom: 12px;">Download Excel</button>
+            </a>
+            {% endif %}
+
+            <!-- Table Preview -->
+            {{ tasks|safe }}
+
+            {% else %}
+            <div class="placeholder">
+                Timesheet will appear here once generated.
+            </div>
+            {% endif %}
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
