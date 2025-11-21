@@ -14,7 +14,7 @@ This repository contains the starter code to help you build or extend your own A
 It includes:
 
 * A backend agent (`agent.py`) powered by Google ADK.
-* A frontend interface (`index.html` + `result.html`).
+* A frontend interface (`index.html`).
 * Everything you need to customize, extend, or integrate into your own startup idea.
 
 ---
