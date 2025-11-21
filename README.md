@@ -82,11 +82,9 @@ Your AI Timesheet Agent will now be hosted at:
 
 ## 🖼️ **Screenshots / Images Section**
 
-```
 <img width="1918" height="934" alt="image" src="https://github.com/user-attachments/assets/69dc443f-1639-46f3-9ca4-18460740eed0" />
 <img width="1919" height="923" alt="image" src="https://github.com/user-attachments/assets/6c86a628-ef64-4c61-99b8-af8ce7eff584" />
 
----
 
 ## 🙏 **Thank You**
 
